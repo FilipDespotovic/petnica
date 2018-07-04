@@ -1,0 +1,74 @@
+import random
+import os
+
+def solutionFound(s, lenWord):
+	for i in range(0, lenWord):
+		if s[i] == '_':
+			return False
+	return True
+
+def  printBadList(badCharacter, lenBadChar):
+	for i in range(0, lenBadChar):
+		print(badCharacter[i], end = ' ')
+
+def printList(s, lenWord):
+	for i in range(0, lenWord):
+		print(s[i], end = ' ')
+
+def printInterface(s, badCharacter, lenWord, lenBadChar):
+	os.system("clear")
+	print(lifes)
+	print("UNESI SLOVO :")
+	printList(s, lenWord)
+	print()
+	printBadList(badCharacter, lenBadChar)
+	print()
+	
+def makeWord():
+	lines = open('input.txt').read().splitlines()
+	myRandWord = random.choice(lines)
+	return myRandWord
+
+def changeList(character, s, lenWord):
+
+	for i in range(0, lenWord):
+		if character == word[i]:
+			s[i] = character
+	return s
+
+word = makeWord()
+lenWord = len(word)
+lifes = 10
+s = []#pogodjena slova i prazna mesta
+badCharacter = []#omasena slova
+lenBadChar = 0
+for i in range(0, lenWord):
+	s += '_'
+character = ""
+m = False
+
+while lifes > 0:
+	printInterface(s, badCharacter, lenWord, lenBadChar)
+	character = input()
+	
+	if character in word:		
+		s = changeList(character, s, lenWord)
+	else:
+		if character in badCharacter:
+			lifes = lifes - 1
+		else:
+			badCharacter += character
+			lenBadChar = lenBadChar + 1
+			lifes = lifes - 1
+
+	if solutionFound(s, lenWord):
+		printInterface(s, badCharacter, lenWord, lenBadChar)
+		print("SVAKA CAST")
+		m = True
+		break
+
+if m == False:
+	printInterface(s, badCharacter, lenWord, lenBadChar)
+	print("REC JE BILA",word)
+
+
