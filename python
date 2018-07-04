@@ -1,0 +1,85 @@
+import pandas as pd
+
+Porudzbine = pd.read_csv("files/orders.csv")
+Proizvodi = pd.read_csv("files/products.csv")
+
+brojProizvoda = len(set(Proizvodi["product_id"]))
+brojNarudzbina = len(set(Porudzbine["order_id"]))
+brojKorisnika = len(set(Porudzbine["user_id"]))
+print("Broj korisnika: " + str(brojKorisnika) + " broj proizvoda:" + str(brojProizvoda) + " broj narudzbina: " + str(brojNarudzbina))
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+Mesovita = pd.read_csv("files/order_products__prior.csv")
+n = len(set(Mesovita["order_id"]))
+t = len(set(Mesovita["product_id"]))
+print("Prosecno: " + str(n/t))
+niz = [0] * 3 * n
+for i in Mesovita["order_id"]:
+    niz[i] += 1
+a = np.array(niz)
+b = np.array(range(0, 3*n))
+
+plt.plot(b, a)
+plt.show()
+
+import pandas as pd
+
+Mesovita = pd.read_csv("files/order_products__prior.csv")
+n = len(set(Mesovita["order_id"]))
+t = len(set(Mesovita["product_id"]))
+
+niz = [0] * 3 * t
+
+for i in Mesovita["product_id"]:
+    niz[i] += 1
+niz.sort()
+
+x = niz[-10:]
+
+for i in x:
+    print(i)
+    
+    import pandas as pd
+
+Mesovita = pd.read_csv("files/orders.csv")
+
+def Dan(broj): 
+    if broj == 1:
+        return "Ponedeljak"
+    if broj == 2:
+        return "Utorak"
+    if broj == 3:
+        return "Sreda"
+    if broj == 4:
+        return "Cetvrtak"
+    if broj == 5:
+        return "Petak"
+    if broj == 6:
+        return "Subota"
+    if broj == 7:
+        return "Nedelja"
+
+niz = [0] * 8
+
+for i in Mesovita["order_dow"]:
+    niz[i] += 1
+
+mojMax = 0
+mojIndex = 0
+
+for i in range(0, 8):
+   if niz[i] > mojMax:
+       mojMax = niz[i]
+       mojIndex = i
+niz[mojIndex] = 0
+
+tvojMax = 0
+tvojIndex = 0
+
+for i in range(0, 8):
+   if niz[i] > tvojMax:
+       tvojMax = niz[i]
+       tvojIndex = i
+print("Najposeceniji dani su: " + str(Dan(tvojIndex+1)) + " i " + str(Dan(mojIndex+1)))
